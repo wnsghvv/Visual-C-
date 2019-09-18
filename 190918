@@ -1,0 +1,23 @@
+
+CPoint pnt;
+COLORREF col = RGB(0, 255, 0);
+void CPenDlg::OnMouseMove(UINT nFlags, CPoint point)
+{
+	if (nFlags == MK_LBUTTON) {
+		CClientDC dc(this);
+		CPen pen(PS_SOLID, 16, col);
+		dc.SelectObject(&pen);
+		dc.MoveTo(pnt);
+		dc.LineTo(point);
+	}
+	pnt = point;
+	CDialogEx::OnMouseMove(nFlags, point);
+}
+
+void CPenDlg::OnBnClickedButton1()
+{
+	CColorDialog dlg;
+	if (dlg.DoModal() == IDOK) {
+		col = dlg.GetColor();
+	}
+}
